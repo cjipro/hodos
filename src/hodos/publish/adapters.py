@@ -63,7 +63,9 @@ def write_text_lf(path: Path, content: str, encoding: str = "utf-8") -> None:
     are byte-identical.
     """
     normalised = content.replace("\r\n", "\n").replace("\r", "\n")
-    path.write_text(normalised, encoding=encoding, newline="\n")
+    # Writing bytes (rather than text with newline="\n", which needs
+    # Python 3.10+) keeps this portable down to the declared 3.9 floor.
+    path.write_bytes(normalised.encode(encoding))
 
 
 def _is_binary(content: str | bytes) -> bool:
