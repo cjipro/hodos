@@ -4,17 +4,32 @@ Hodos is an open-source engine for customer-journey intelligence — signal
 harvesting, taxonomy, inference, a CHRONICLE-style evidence ledger, and
 publishing/chat layers for turning raw customer signal into decisions.
 
-**Status: pre-engine, legibility-first.** This repository currently holds
-the project's legal and governance scaffolding — license, trademark
-policy, contribution process, governance model, and the CJI/Hodos naming
-boundary — ahead of the engine code itself. The engine is being distilled
-out of a private, working application ([CJI](https://cjipro.com)) as its
-patterns stabilise; extraction is in progress, not finished. If you're
-looking for a runnable engine today, it isn't here yet — this repo is the
-honest starting point, not a finished product wearing a README.
+**Status: early — one module extracted so far.** This repository started
+as legal/governance scaffolding (license, trademark policy, contribution
+process, governance model) ahead of any code, and now carries its first
+real piece: `hodos.publish`, a pluggable-destination abstraction extracted
+from a private production system that has used it to push daily rendered
+output to GitHub Pages since 2026-04. The engine is being distilled out of
+that private, working application ([CJI](https://cjipro.com)) module by
+module as patterns stabilise — most of the engine isn't extracted yet.
+Don't expect a full framework here today; expect one tested, runnable
+piece, with more following the same pattern.
 
-Why publish scaffolding before code: license and trademark terms should
-exist *before* code lands, not be retrofitted once contributors show up.
+## Quickstart
+
+```bash
+pip install -e ".[dev]"
+pytest                        # 8 tests, no network required
+python examples/local_publish.py   # writes ./published/demo/index.html
+```
+
+`hodos.publish` gives you `NullAdapter` (dry runs), `LocalAdapter` (write
+to disk), and `GitHubPagesAdapter` (clone/write/commit/push to a Pages
+branch) behind one `PublishAdapter` interface, so code that renders
+content never needs to know where it's going. See
+[`src/hodos/publish/adapters.py`](src/hodos/publish/adapters.py) for the
+full interface and [`examples/local_publish.py`](examples/local_publish.py)
+for a working example.
 
 ## What Hodos is
 

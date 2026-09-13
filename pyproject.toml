@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hodos"
+version = "0.1.0"
+description = "Open-source engine for customer-journey intelligence"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Hussain Ahmed", email = "hello@cjipro.com" }]
+requires-python = ">=3.9"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.urls]
+Homepage = "https://github.com/cjipro/hodos"
+
+[tool.setuptools.packages.find]
+where = ["src"]
